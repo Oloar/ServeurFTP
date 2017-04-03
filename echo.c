@@ -5,14 +5,26 @@
 
 void echo(int connfd)
 {
-    size_t n;
-    char buf[MAXLINE];
+    int fd;
     rio_t rio;
+    size_t size, idx;
+    char buf[MAXLINE],
+         fname[MAXLINE];
 
     Rio_readinitb(&rio, connfd);
-    while ((n = Rio_readlineb(&rio, buf, MAXLINE)) != 0) {
-        printf("server received %u bytes PID: %d\n", (unsigned int)n, getpid());
-        Rio_writen(connfd, buf, n);
+    idx =  Rio_readlineb(&rio, fname, MAXLINE);
+    if(idx > 1) {
+        if (fname[idx-1] == '\n') {
+            fname[idx-1] = '\0';
+            idx--;
+        }
     }
+    fd = open(fname, O_RDONLY);
+    if(fd != -1) {
+        while((size = read(fd, buf, MAXLINE)) != 0) {
+            printf("read %lu Bytes\n", size);
+            Rio_writen(connfd, buf, size);
+        }
+    }
+    close(fd);
 }
-

@@ -10,6 +10,7 @@
 
 #define MAX_NAME_LEN 256
 #define NBPROC 2
+// #define LOGFILE _log
 
 void echo(int connfd);
 
@@ -65,7 +66,7 @@ int main(int argc, char **argv) {
     }
     if(pid == 0){
         while (1) {
-            printf("Accept: ");
+            // printf("Accept: ");
             connfd = Accept(listenfd, (SA *)&clientaddr, &clientlen);
 /*            if(Fork() == 0) {
                 printf("Fils %d\n", getpid());*/
@@ -76,7 +77,7 @@ int main(int argc, char **argv) {
                 /* determine the textual representation of the client's IP address */
                 Inet_ntop(AF_INET, &clientaddr.sin_addr, client_ip_string, INET_ADDRSTRLEN);
                 
-                printf("server connected to %s (%s)\nserver pid: %d\n", client_hostname, client_ip_string, getpid());
+                printf("server connected to %s (%s : %d)\n", client_hostname, client_ip_string, getpid());
 
                 echo(connfd);
                 Close(connfd);
