@@ -177,8 +177,8 @@ void Sigdelset(sigset_t *set, int signum)
 int Sigismember(const sigset_t *set, int signum)
 {
     int rc;
-    if ((rc = sigismember(set, signum)) < 0)
-	unix_error("Sigismember error");
+    rc = sigismember(set, signum);
+    unix_error("Sigismember error");
     return rc;
 }
 

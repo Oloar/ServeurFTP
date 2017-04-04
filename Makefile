@@ -19,7 +19,7 @@ INCLUDE = csapp.h
 OBJS = csapp.o
 INCLDIR = -I.
 
-PROGS = echoclient echoserveri
+PROGS = clientFTP serverFTP
 
 
 
@@ -27,9 +27,9 @@ all: $(PROGS)
 
 %.o: %.c $(INCLUDE)
 	$(CC) $(CFLAGS) $(INCLDIR) -c -o $@ $<
-	
+
 %: %.o $(OBJS)
 	$(CC) -o $@ $(LDFLAGS) $^ $(LIBS)
-	
+
 clean:
 	rm -f $(PROGS) *.o

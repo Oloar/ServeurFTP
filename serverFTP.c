@@ -6,7 +6,7 @@
 #include <signal.h>
 
 #include "csapp.h"
-#include "echo.c"
+#include "readfile.c"
 
 #define MAX_NAME_LEN 256
 #define NBPROC 2
@@ -46,11 +46,13 @@ int main(int argc, char **argv) {
 
     signal(SIGCHLD, handler_SIGCHLD);
     signal(SIGINT, handler_SIGINT);
-    if (argc != 2) {
-        fprintf(stderr, "usage: %s <port>\n", argv[0]);
-        exit(0);
-    }
-    port = atoi(argv[1]);
+    // if (argc != 2) {
+    //     fprintf(stderr, "usage: %s <port>\n", argv[0]);
+    //     exit(0);
+    // }
+    // port = atoi(argv[1]);
+
+    port = 2121; // Config par défaut
 
     clientlen = (socklen_t)sizeof(clientaddr);
 
@@ -66,17 +68,11 @@ int main(int argc, char **argv) {
     }
     if(pid == 0){
         while (1) {
-            // printf("Accept: ");
             connfd = Accept(listenfd, (SA *)&clientaddr, &clientlen);
-/*            if(Fork() == 0) {
-                printf("Fils %d\n", getpid());*/
-
                 /* determine the name of the client */
                 Getnameinfo((SA *) &clientaddr, clientlen, client_hostname, MAX_NAME_LEN, 0, 0, 0);
-
                 /* determine the textual representation of the client's IP address */
                 Inet_ntop(AF_INET, &clientaddr.sin_addr, client_ip_string, INET_ADDRSTRLEN);
-                
                 printf("server connected to %s (%s : %d)\n", client_hostname, client_ip_string, getpid());
 
                 echo(connfd);
