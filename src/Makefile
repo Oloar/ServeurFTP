@@ -15,12 +15,13 @@ LDFLAGS =
 # LIBS += -lsocket -lnsl -lrt
 LIBS += -lpthread
 
-INCLUDE = csapp.h
-OBJS = csapp.o
+INCLUDE = csapp.h parse.h
+OBJS = csapp.o parse.o
 INCLDIR = -I.
 
 PROGS = clientFTP serverFTP
 
+CLIENTDIR = ./ClientDir/
 
 
 all: $(PROGS)
@@ -33,3 +34,6 @@ all: $(PROGS)
 
 clean:
 	rm -f $(PROGS) *.o
+
+move:
+	mkdir -p $(CLIENTDIR) && mv clientFTP $(CLIENTDIR)/
