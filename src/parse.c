@@ -83,7 +83,7 @@ int nb_words(char **t) {
 }
 
 int command_code(char *action) {
-    char *actionStrings[] = {"get","put","quit"};
+    char *actionStrings[] = {"get","put","quit","ls","pwd","cd"};
 
     for (int i = 0; i < NBACTIONS; ++i) {
         if (strcmp(action, actionStrings[i]) == 0) {

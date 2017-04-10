@@ -17,13 +17,7 @@ void echo(int connfd);
 
 
 void handler_SIGCHLD(int sig) {
-    int pid, status;
-    if ((pid = wait(&status)) == -1) {
-        fprintf(stderr, "Too soon\n");
-    }
-    else {
-        fprintf(stdout, "Deco: %d\n", pid);
-    }
+    while(wait(NULL) >0);
     return;
 }
 void handler_SIGINT(int sig) {
@@ -55,12 +49,6 @@ int main(int argc, char **argv) {
 
     listenfd = Open_listenfd(port);
 
-    // for (int i = 0; i < NBPROC; ++i) {
-    //     if(fork() == 0){
-    //         slave();
-    //     }
-    // }
-
     for (int i = 0; i < NBPROC; ++i) {
         if (getpid() == father) {
             pid = fork();
@@ -75,10 +63,10 @@ int main(int argc, char **argv) {
                 Getnameinfo((SA *) &clientaddr, clientlen, client_hostname, MAX_NAME_LEN, 0, 0, 0);
                 /* determine the textual representation of the client's IP address */
                 Inet_ntop(AF_INET, &clientaddr.sin_addr, client_ip_string, INET_ADDRSTRLEN);
-                printf("server connected to %s (%s:%d)\n", client_hostname, client_ip_string, getpid());
+                printf("Client connected to %s (%s). Server on PID: %d\n", client_hostname, client_ip_string, getpid());
 
                 ftp(connfd);
-                Close(connfd);
+                close(connfd);
         }
     }
     else {

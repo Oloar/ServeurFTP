@@ -1,12 +1,15 @@
 #ifndef __PARSE_H__
 #define __PARSE_H__
 
-#define BLOCKSIZE 8192
+#define BLOCKSIZE 512
 
-#define NBACTIONS 3
+#define NBACTIONS 6
 #define GET 0
 #define PUT 1
 #define QUIT 2
+#define LS 3
+#define PWD 4
+#define CD 5
 
 
 int command_code(char *action);
