@@ -6,7 +6,8 @@
 #include <signal.h>
 
 #include "csapp.h"
-#include "readfile.c"
+#include "ftp.h"
+
 
 #define MAX_NAME_LEN 256
 #define NBPROC 2
@@ -76,7 +77,7 @@ int main(int argc, char **argv) {
                 Inet_ntop(AF_INET, &clientaddr.sin_addr, client_ip_string, INET_ADDRSTRLEN);
                 printf("server connected to %s (%s:%d)\n", client_hostname, client_ip_string, getpid());
 
-                echo(connfd);
+                ftp(connfd);
                 Close(connfd);
         }
     }

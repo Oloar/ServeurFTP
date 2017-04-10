@@ -15,8 +15,8 @@ LDFLAGS =
 # LIBS += -lsocket -lnsl -lrt
 LIBS += -lpthread
 
-INCLUDE = csapp.h parse.h
-OBJS = csapp.o parse.o
+INCLUDE = csapp.h parse.h ftp.h
+OBJS = csapp.o parse.o ftp.o
 INCLDIR = -I.
 
 PROGS = clientFTP serverFTP
