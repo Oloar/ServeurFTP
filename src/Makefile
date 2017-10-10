@@ -6,7 +6,7 @@
 # Keep intermediate files
 #.PRECIOUS: %.o
 
-CC = gcc
+CC = cc
 CFLAGS = -Wall
 LDFLAGS =
 
