@@ -69,14 +69,14 @@ int main(int argc, char **argv) {
                 break;
                 case CD:
                     if (nbWord != 2 ) {
-                        printf("cd require a single argument.\n");
+                        printf("cd requires a single argument.\n");
                     }
                     else {
                         sh_request(clientfd, cmdCode, cmd[1]);
                     }
                 break;
                 case -1 : 
-                    printf("Err: commande non reconnue.\n");
+                    printf("Err: unknown command.\n");
                 break;
                 default: 
                     for (int i = 1; i < nbWord; ++i) {
